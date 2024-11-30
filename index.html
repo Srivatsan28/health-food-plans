@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JFC Foods Subscription Plans</title>
+    <title>JFC Foods - Healthy Food Plans</title>
     <style>
-        /* Import Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-
-        /* General Reset */
+        /* Reset some default styling */
         * {
             margin: 0;
             padding: 0;
@@ -17,116 +14,93 @@
         }
 
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #fff7ef;
+            font-family: 'Arial', sans-serif;
+            background-color: #fff7e6;
             color: #333;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background: linear-gradient(135deg, #ff6a00, #f7941d);
+            background-color: #ff6f00;
             color: white;
-            padding: 20px 20px;
+            padding: 15px 0;
             text-align: center;
         }
 
         header h1 {
             font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 1rem;
-            font-weight: 400;
         }
 
         main {
-            padding: 40px 20px;
+            padding: 30px 10px;
         }
 
         .plans {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            justify-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .plan {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 280px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            border: 2px solid transparent;
+            transition: transform 0.3s ease;
         }
 
         .plan:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            border-image-source: linear-gradient(135deg, #ff6a00, #f7941d);
-            border-image-slice: 1;
+            transform: scale(1.05);
         }
 
         .plan h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #ff6a00;
-            font-weight: 600;
+            font-size: 1.5rem;
+            color: #ff6f00;
+            margin-bottom: 15px;
         }
 
         .plan ul {
             list-style: none;
             margin: 20px 0;
             padding: 0;
-            font-size: 1rem;
-            color: #555;
         }
 
         .plan ul li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
         .checkout-btn {
-            background: linear-gradient(135deg, #ff6a00, #f7941d);
+            background-color: #ff6f00;
             color: white;
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-size: 1rem;
             border: none;
-            border-radius: 8px;
-            padding: 10px 18px;
+            border-radius: 5px;
+            padding: 10px 15px;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
 
         .checkout-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            background-color: #e55d00;
         }
 
         footer {
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 15px 0;
-            margin-top: 30px;
-        }
-
-        footer p {
-            font-size: 0.9rem;
+            padding: 10px 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <div>
-            <h1>JFC Foods</h1>
-            <p>Healthy, delicious meals tailored for you.</p>
-        </div>
+        <h1>JFC Foods - Subscription Plans</h1>
     </header>
 
     <main>
@@ -137,7 +111,7 @@
                 <ul>
                     <li>Breakfast health mix</li>
                 </ul>
-                <button class="checkout-btn" id="basic-checkout-btn">Checkout</button>
+                <button class="checkout-btn">Checkout</button>
             </div>
 
             <!-- Advantage Plan -->
@@ -148,7 +122,7 @@
                     <li>Protein biscuits</li>
                     <li>Free delivery</li>
                 </ul>
-                <button class="checkout-btn" id="advantage-checkout-btn">Checkout</button>
+                <button class="checkout-btn">Checkout</button>
             </div>
 
             <!-- Amaze Plan -->
@@ -169,21 +143,49 @@
     </footer>
 
     <script>
-        // Add event listeners for checkout buttons
-        document.getElementById('basic-checkout-btn').addEventListener('click', function() {
-            alert('Proceeding to checkout for the Basic Plan!');
-            // Call Chargebee API for checkout here
-        });
+        const CHARGEBEE_SITE = "test"; // Replace with your Chargebee site name (subdomain)
+        const API_KEY = "test_78KhVzcucQ6DvfxMSV2uHvX18JV2gqqQu";
 
-        document.getElementById('advantage-checkout-btn').addEventListener('click', function() {
-            alert('Proceeding to checkout for the Advantage Plan!');
-            // Call Chargebee API for checkout here
-        });
+        async function createCheckoutForAmazePlan() {
+            const url = `https://${CHARGEBEE_SITE}.chargebee.com/api/v2/hosted_pages/checkout_new`;
 
-        document.getElementById('amaze-checkout-btn').addEventListener('click', function() {
-            alert('Proceeding to checkout for the Amaze Plan!');
-            // Call Chargebee API for checkout here
-        });
+            const data = {
+                subscription: {
+                    plan_id: "amaze_plan" // Replace with your plan ID
+                },
+                customer: {
+                    first_name: "John",
+                    last_name: "Doe",
+                    email: "john.doe@example.com" // Replace with dynamic user input if needed
+                }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Basic ${btoa(API_KEY + ":")}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const checkoutUrl = result.hosted_page.url;
+                    window.location.href = checkoutUrl; // Redirect to the checkout page
+                } else {
+                    console.error("Failed to create checkout:", await response.json());
+                    alert("Failed to generate checkout link. Check console for details.");
+                }
+            } catch (error) {
+                console.error("Error creating checkout:", error);
+                alert("An error occurred while generating the checkout link.");
+            }
+        }
+
+        // Add event listener for the Amaze Plan button
+        document.getElementById("amaze-checkout-btn").addEventListener("click", createCheckoutForAmazePlan);
     </script>
 </body>
 </html>
