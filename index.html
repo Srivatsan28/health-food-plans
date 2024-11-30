@@ -5,11 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Healthy Food Subscription Plans</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset some default styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        main {
+            padding: 30px 0;
+        }
+
+        .plans {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .plan {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .plan:hover {
+            transform: scale(1.05);
+        }
+
+        .plan h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .plan ul {
+            list-style: none;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        .plan ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .checkout-btn {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="container">
+        <div>
             <h1>Healthy Food Subscription Plans</h1>
             <p>Choose a plan that fits your lifestyle and enjoy healthy meals delivered to your door every week!</p>
         </div>
@@ -17,6 +115,7 @@
 
     <main>
         <section class="plans">
+            <!-- Basic Plan -->
             <div class="plan" id="basic-plan">
                 <h2>Basic Plan - $20/week</h2>
                 <ul>
@@ -24,6 +123,8 @@
                 </ul>
                 <button class="checkout-btn" id="basic-checkout-btn">Checkout</button>
             </div>
+
+            <!-- Advantage Plan -->
             <div class="plan" id="advantage-plan">
                 <h2>Advantage Plan - $30/week</h2>
                 <ul>
@@ -33,6 +134,8 @@
                 </ul>
                 <button class="checkout-btn" id="advantage-checkout-btn">Checkout</button>
             </div>
+
+            <!-- Amaze Plan -->
             <div class="plan" id="amaze-plan">
                 <h2>Amaze Plan - $40/week</h2>
                 <ul>
@@ -49,6 +152,22 @@
         <p>&copy; 2024 Healthy Food Co. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Add event listeners for checkout buttons
+        document.getElementById('basic-checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout for the Basic Plan!');
+            // Call Chargebee API for checkout here
+        });
+
+        document.getElementById('advantage-checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout for the Advantage Plan!');
+            // Call Chargebee API for checkout here
+        });
+
+        document.getElementById('amaze-checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout for the Amaze Plan!');
+            // Call Chargebee API for checkout here
+        });
+    </script>
 </body>
 </html>
