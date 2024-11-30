@@ -4,15 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JFC Foods - Healthy Food Plans</title>
+    <title>JFC Foods - Subscription Plans</title>
     <style>
-        /* Reset some default styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Arial', sans-serif;
             background-color: #fff7e6;
@@ -20,87 +13,81 @@
             margin: 0;
             padding: 0;
         }
-
         header {
             background-color: #ff6f00;
             color: white;
-            padding: 15px 0;
             text-align: center;
+            padding: 20px 0;
         }
-
         header h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            margin: 0;
         }
-
+        header p {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
         main {
-            padding: 30px 10px;
+            padding: 20px;
         }
-
         .plans {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
         }
-
         .plan {
-            background-color: #ffffff;
+            background: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 280px;
             text-align: center;
-            transition: transform 0.3s ease;
+            width: 280px;
+            transition: transform 0.3s;
         }
-
         .plan:hover {
             transform: scale(1.05);
         }
-
         .plan h2 {
-            font-size: 1.5rem;
             color: #ff6f00;
+            font-size: 1.4rem;
             margin-bottom: 15px;
         }
-
         .plan ul {
             list-style: none;
-            margin: 20px 0;
             padding: 0;
+            margin: 15px 0;
+            color: #555;
         }
-
         .plan ul li {
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin: 5px 0;
         }
-
         .checkout-btn {
             background-color: #ff6f00;
             color: white;
-            font-size: 1rem;
             border: none;
             border-radius: 5px;
             padding: 10px 15px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
-
         .checkout-btn:hover {
-            background-color: #e55d00;
+            background-color: #e65c00;
         }
-
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 10px 0;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>JFC Foods - Subscription Plans</h1>
+        <h1>JFC Foods</h1>
+        <p>Healthy Food Plans for Your Well-being</p>
     </header>
 
     <main>
@@ -111,7 +98,7 @@
                 <ul>
                     <li>Breakfast health mix</li>
                 </ul>
-                <button class="checkout-btn">Checkout</button>
+                <button class="checkout-btn" id="basic-checkout-btn">Checkout</button>
             </div>
 
             <!-- Advantage Plan -->
@@ -122,7 +109,7 @@
                     <li>Protein biscuits</li>
                     <li>Free delivery</li>
                 </ul>
-                <button class="checkout-btn">Checkout</button>
+                <button class="checkout-btn" id="advantage-checkout-btn">Checkout</button>
             </div>
 
             <!-- Amaze Plan -->
@@ -143,20 +130,19 @@
     </footer>
 
     <script>
-        const CHARGEBEE_SITE = "test"; // Replace with your Chargebee site name (subdomain)
-        const API_KEY = "test_78KhVzcucQ6DvfxMSV2uHvX18JV2gqqQu";
+        const CHARGEBEE_SITE = "chargebee-assessment5-test"; // Your Chargebee subdomain
+        const API_KEY = "test_78KhVzcucQ6DvfxMSV2uHvX18JV2gqqQu"; // Your Chargebee API key
 
-        async function createCheckoutForAmazePlan() {
+        // Helper function to create checkout links
+        async function createCheckout(planId) {
             const url = `https://${CHARGEBEE_SITE}.chargebee.com/api/v2/hosted_pages/checkout_new`;
 
             const data = {
-                subscription: {
-                    plan_id: "amaze_plan" // Replace with your plan ID
-                },
+                subscription: { plan_id: planId },
                 customer: {
                     first_name: "John",
                     last_name: "Doe",
-                    email: "john.doe@example.com" // Replace with dynamic user input if needed
+                    email: "john.doe@example.com" // Replace with user data if dynamic
                 }
             };
 
@@ -175,17 +161,19 @@
                     const checkoutUrl = result.hosted_page.url;
                     window.location.href = checkoutUrl; // Redirect to the checkout page
                 } else {
-                    console.error("Failed to create checkout:", await response.json());
-                    alert("Failed to generate checkout link. Check console for details.");
+                    const errorResponse = await response.json();
+                    alert("Error: " + (errorResponse.message || "Failed to create checkout."));
                 }
             } catch (error) {
-                console.error("Error creating checkout:", error);
-                alert("An error occurred while generating the checkout link.");
+                console.error("API Error:", error);
+                alert("An error occurred while creating the checkout link.");
             }
         }
 
-        // Add event listener for the Amaze Plan button
-        document.getElementById("amaze-checkout-btn").addEventListener("click", createCheckoutForAmazePlan);
+        // Event listeners for each plan
+        document.getElementById("basic-checkout-btn").addEventListener("click", () => createCheckout("basic_plan"));
+        document.getElementById("advantage-checkout-btn").addEventListener("click", () => createCheckout("advantage_plan"));
+        document.getElementById("amaze-checkout-btn").addEventListener("click", () => createCheckout("amaze_plan"));
     </script>
 </body>
 </html>
