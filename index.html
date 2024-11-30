@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Healthy Food Subscription Plans</title>
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Healthy Food Subscription Plans</h1>
-        <p>Choose the perfect plan for your healthy lifestyle!</p>
+        <div class="container">
+            <h1>Healthy Food Subscription Plans</h1>
+            <p>Choose a plan that fits your lifestyle and enjoy healthy meals delivered to your door every week!</p>
+        </div>
     </header>
+
     <main>
         <section class="plans">
-            <div class="plan">
-                <h2>Basic Plan</h2>
-                <p class="price">$20/week</p>
+            <div class="plan" id="basic-plan">
+                <h2>Basic Plan - $20/week</h2>
                 <ul>
-                    <li>Includes a breakfast health mix.</li>
+                    <li>Breakfast health mix</li>
                 </ul>
-                <button onclick="checkout('Basic')">Choose Basic</button>
+                <button class="checkout-btn" id="basic-checkout-btn">Checkout</button>
             </div>
-            <div class="plan featured">
-                <h2>Advantage Plan</h2>
-                <p class="price">$30/week</p>
+            <div class="plan" id="advantage-plan">
+                <h2>Advantage Plan - $30/week</h2>
                 <ul>
-                    <li>Everything in the Basic Plan</li>
+                    <li>Includes everything in the Basic plan</li>
                     <li>Protein biscuits</li>
                     <li>Free delivery</li>
                 </ul>
-                <button onclick="checkout('Advantage')">Choose Advantage</button>
+                <button class="checkout-btn" id="advantage-checkout-btn">Checkout</button>
             </div>
-            <div class="plan">
-                <h2>Amaze Plan</h2>
-                <p class="price">$40/week</p>
+            <div class="plan" id="amaze-plan">
+                <h2>Amaze Plan - $40/week</h2>
                 <ul>
-                    <li>Everything in the Advantage Plan</li>
+                    <li>Includes everything in the Advantage plan</li>
                     <li>GYM membership</li>
                     <li>Phone support</li>
                 </ul>
-                <button onclick="checkout('Amaze')">Choose Amaze</button>
+                <button class="checkout-btn" id="amaze-checkout-btn">Checkout</button>
             </div>
         </section>
     </main>
+
     <footer>
-        <p>&copy; 2024 Healthy Foods Inc. | Designed with care for your health.</p>
+        <p>&copy; 2024 Healthy Food Co. All rights reserved.</p>
     </footer>
 
-    <!-- Link to the external JS script file -->
     <script src="script.js"></script>
 </body>
 </html>
