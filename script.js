@@ -9,3 +9,4 @@ function checkout(plan) {
         window.location.href = "https://your-chargebee-checkout-link-amaze";
     }
 }
+
