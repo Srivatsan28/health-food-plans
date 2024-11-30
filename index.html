@@ -130,19 +130,17 @@
     </footer>
 
     <script>
-        const CHARGEBEE_SITE = "chargebee-assessment5-test"; // Your Chargebee subdomain
-        const API_KEY = "test_78KhVzcucQ6DvfxMSV2uHvX18JV2gqqQu"; // Your Chargebee API key
+        const CHARGEBEE_SITE = "chargebee-assessment5-test";
+        const API_KEY = "test_8TtSJjFkxka47mqe6aChfN3mObO5Hk5b";
 
-        // Helper function to create checkout links
         async function createCheckout(planId) {
             const url = `https://${CHARGEBEE_SITE}.chargebee.com/api/v2/hosted_pages/checkout_new`;
-
             const data = {
                 subscription: { plan_id: planId },
                 customer: {
                     first_name: "John",
                     last_name: "Doe",
-                    email: "john.doe@example.com" // Replace with user data if dynamic
+                    email: "john.doe@example.com"
                 }
             };
 
@@ -158,19 +156,17 @@
 
                 if (response.ok) {
                     const result = await response.json();
-                    const checkoutUrl = result.hosted_page.url;
-                    window.location.href = checkoutUrl; // Redirect to the checkout page
+                    window.location.href = result.hosted_page.url;
                 } else {
-                    const errorResponse = await response.json();
-                    alert("Error: " + (errorResponse.message || "Failed to create checkout."));
+                    const error = await response.json();
+                    alert(`Error: ${error.message || "Unable to create checkout link"}`);
                 }
             } catch (error) {
-                console.error("API Error:", error);
                 alert("An error occurred while creating the checkout link.");
+                console.error("API Error:", error);
             }
         }
 
-        // Event listeners for each plan
         document.getElementById("basic-checkout-btn").addEventListener("click", () => createCheckout("basic_plan"));
         document.getElementById("advantage-checkout-btn").addEventListener("click", () => createCheckout("advantage_plan"));
         document.getElementById("amaze-checkout-btn").addEventListener("click", () => createCheckout("amaze_plan"));
