@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JFC Foods - Healthy Food Plans</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JFC Foods Subscription Plans</title>
     <style>
-        /* General Reset */
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
@@ -14,27 +15,30 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fff7e6;
+            background-color: #fef8f2;
             color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
         }
 
         header {
-            background-color: #ff7f50;
+            background-color: #ff6a00;
             color: white;
-            padding: 15px 20px;
             text-align: center;
+            padding: 20px;
         }
 
         header h1 {
             font-size: 2rem;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        main {
+        header p {
+            font-size: 1rem;
+        }
+
+        .container {
+            margin: 20px auto;
             padding: 20px;
+            max-width: 1200px;
         }
 
         .plans {
@@ -45,13 +49,13 @@
         }
 
         .plan {
-            background: #fff;
-            border-radius: 8px;
+            background-color: white;
+            border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 300px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s;
         }
 
         .plan:hover {
@@ -59,55 +63,53 @@
         }
 
         .plan h2 {
-            color: #ff7f50;
+            color: #ff6a00;
             font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
         .plan ul {
-            list-style: none;
+            list-style-type: none;
             padding: 0;
-            margin-bottom: 15px;
+            margin: 15px 0;
+            text-align: left;
         }
 
         .plan ul li {
-            padding: 5px 0;
+            margin: 5px 0;
             font-size: 1rem;
         }
 
         .checkout-btn {
-            background-color: #ff7f50;
+            background-color: #ff6a00;
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px 15px;
+            padding: 10px 20px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
         .checkout-btn:hover {
-            background-color: #e67340;
+            background-color: #e55c00;
         }
 
         footer {
-            background: #333;
-            color: white;
             text-align: center;
+            background-color: #333;
+            color: white;
             padding: 10px 0;
             margin-top: 20px;
-        }
-
-        footer p {
-            margin: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>JFC Foods - Healthy Food Plans</h1>
+        <h1>JFC Foods</h1>
+        <p>Your gateway to a healthier lifestyle. Choose a plan and enjoy fresh, healthy meals delivered weekly!</p>
     </header>
-    <main>
+    <div class="container">
         <section class="plans">
             <!-- Basic Plan -->
             <div class="plan">
@@ -122,7 +124,7 @@
             <div class="plan">
                 <h2>Advantage Plan - $30/week</h2>
                 <ul>
-                    <li>Everything in the Basic Plan</li>
+                    <li>Includes everything in the Basic plan</li>
                     <li>Protein biscuits</li>
                     <li>Free delivery</li>
                 </ul>
@@ -133,46 +135,48 @@
             <div class="plan">
                 <h2>Amaze Plan - $40/week</h2>
                 <ul>
-                    <li>Everything in the Advantage Plan</li>
+                    <li>Includes everything in the Advantage plan</li>
                     <li>GYM membership</li>
                     <li>Phone support</li>
                 </ul>
-                <button class="checkout-btn" id="amaze-checkout-btn">Checkout</button>
+                <button id="amaze-checkout-btn" class="checkout-btn">Checkout</button>
             </div>
         </section>
-    </main>
+    </div>
     <footer>
         <p>&copy; 2024 JFC Foods. All rights reserved.</p>
     </footer>
 
+    <script src="https://js.chargebee.com/v2/chargebee.js"></script>
     <script>
-        // Amaze Plan Checkout
-        document.getElementById('amaze-checkout-btn').addEventListener('click', function () {
-            fetch('https://chargebee-assessment5-test.chargebee.com/api/v2/hosted_pages/checkout_new', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa('test_otHPAA4ryXsqLId20Sso0KE4YO9DNiuI:')
+        // Initialize Chargebee
+        var cbInstance = Chargebee.init({
+            site: "chargebee-assessment5-test"
+        });
+
+        // Checkout for Amaze Plan
+        document.getElementById("amaze-checkout-btn").addEventListener("click", function () {
+            console.log("Opening checkout for Amaze Plan...");
+            cbInstance.openCheckout({
+                hostedPage: function () {
+                    return {
+                        type: "checkout_new",
+                        subscription: {
+                            plan_id: "amaze_plan"
+                        }
+                    };
                 },
-                body: JSON.stringify({
-                    subscription: {
-                        plan_id: 'amaze_plan'
-                    }
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.hosted_page && data.hosted_page.url) {
-                    // Redirect to Chargebee hosted checkout page
-                    window.location.href = data.hosted_page.url;
-                } else {
-                    alert('Error: Unable to generate checkout link. Please try again.');
-                    console.error('Error Response:', data);
+                success: function (hostedPageId) {
+                    console.log("Checkout successful:", hostedPageId);
+                    alert("Successfully redirected to the checkout page!");
+                },
+                close: function () {
+                    console.log("Checkout window closed");
+                },
+                error: function (error) {
+                    console.error("Error during checkout:", error);
+                    alert("An error occurred. Please try again.");
                 }
-            })
-            .catch(error => {
-                alert('An error occurred while processing the checkout.');
-                console.error('Fetch Error:', error);
             });
         });
     </script>
