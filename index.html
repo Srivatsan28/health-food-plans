@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JFC Foods Subscription Plans</title>
+    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="chargebee-assessment5-test"></script>
     <style>
         /* Reset and base styles */
         * {
@@ -139,45 +140,23 @@
                     <li>GYM membership</li>
                     <li>Phone support</li>
                 </ul>
-                <button id="amaze-checkout-btn" class="checkout-btn">Checkout</button>
+                <button class="checkout-btn" data-cb-type="checkout" data-cb-item-0="amaze_plan-USD-Daily" data-cb-item-0-quantity="1">Checkout</button>
             </div>
         </section>
     </div>
     <footer>
         <p>&copy; 2024 JFC Foods. All rights reserved.</p>
     </footer>
-
-    <script src="https://js.chargebee.com/v2/chargebee.js"></script>
     <script>
         // Initialize Chargebee
-        var cbInstance = Chargebee.init({
-            site: "chargebee-assessment5-test"
-        });
-
-        // Checkout for Amaze Plan
-        document.getElementById("amaze-checkout-btn").addEventListener("click", function () {
-            console.log("Opening checkout for Amaze Plan...");
-            cbInstance.openCheckout({
-                hostedPage: function () {
-                    return {
-                        type: "checkout_new",
-                        subscription: {
-                            plan_id: "amaze_plan"
-                        }
-                    };
-                },
-                success: function (hostedPageId) {
-                    console.log("Checkout successful:", hostedPageId);
-                    alert("Successfully redirected to the checkout page!");
-                },
-                close: function () {
-                    console.log("Checkout window closed");
-                },
-                error: function (error) {
-                    console.error("Error during checkout:", error);
-                    alert("An error occurred. Please try again.");
-                }
-            });
+        var cbInstance = Chargebee.init();
+        cbInstance.setCheckoutCallbacks({
+            loaded: function () {
+                console.log("Checkout loaded successfully.");
+            },
+            error: function (error) {
+                console.error("Error during checkout:", error);
+            }
         });
     </script>
 </body>
