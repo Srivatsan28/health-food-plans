@@ -3,120 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JFC Foods - Subscription Plans</title>
+    <title>JFC Foods - Healthy Food Plans</title>
     <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #fff7e6;
             color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
         }
+
         header {
-            background-color: #ff6f00;
+            background-color: #ff7f50;
             color: white;
+            padding: 15px 20px;
             text-align: center;
-            padding: 20px 0;
         }
+
         header h1 {
-            font-size: 1.8rem;
-            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
         }
-        header p {
-            font-size: 1rem;
-            margin-top: 5px;
-        }
+
         main {
             padding: 20px;
         }
+
         .plans {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-around;
             flex-wrap: wrap;
+            gap: 20px;
         }
+
         .plan {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 15px;
             text-align: center;
-            width: 280px;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease-in-out;
         }
+
         .plan:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
         }
+
         .plan h2 {
-            color: #ff6f00;
-            font-size: 1.4rem;
+            color: #ff7f50;
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
+
         .plan ul {
             list-style: none;
             padding: 0;
-            margin: 15px 0;
-            color: #555;
+            margin-bottom: 15px;
         }
+
         .plan ul li {
-            margin: 5px 0;
+            padding: 5px 0;
+            font-size: 1rem;
         }
+
         .checkout-btn {
-            background-color: #ff6f00;
+            background-color: #ff7f50;
             color: white;
             border: none;
             border-radius: 5px;
             padding: 10px 15px;
-            cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         .checkout-btn:hover {
-            background-color: #e65c00;
+            background-color: #e67340;
         }
+
         footer {
-            background-color: #333;
+            background: #333;
             color: white;
             text-align: center;
             padding: 10px 0;
             margin-top: 20px;
         }
+
+        footer p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>JFC Foods</h1>
-        <p>Healthy Food Plans for Your Well-being</p>
+        <h1>JFC Foods - Healthy Food Plans</h1>
     </header>
-
     <main>
         <section class="plans">
             <!-- Basic Plan -->
-            <div class="plan" id="basic-plan">
+            <div class="plan">
                 <h2>Basic Plan - $20/week</h2>
                 <ul>
                     <li>Breakfast health mix</li>
                 </ul>
-                <button class="checkout-btn" id="basic-checkout-btn">Checkout</button>
+                <button class="checkout-btn">Checkout</button>
             </div>
 
             <!-- Advantage Plan -->
-            <div class="plan" id="advantage-plan">
+            <div class="plan">
                 <h2>Advantage Plan - $30/week</h2>
                 <ul>
-                    <li>Includes everything in the Basic plan</li>
+                    <li>Everything in the Basic Plan</li>
                     <li>Protein biscuits</li>
                     <li>Free delivery</li>
                 </ul>
-                <button class="checkout-btn" id="advantage-checkout-btn">Checkout</button>
+                <button class="checkout-btn">Checkout</button>
             </div>
 
             <!-- Amaze Plan -->
-            <div class="plan" id="amaze-plan">
+            <div class="plan">
                 <h2>Amaze Plan - $40/week</h2>
                 <ul>
-                    <li>Includes everything in the Advantage plan</li>
+                    <li>Everything in the Advantage Plan</li>
                     <li>GYM membership</li>
                     <li>Phone support</li>
                 </ul>
@@ -124,52 +141,40 @@
             </div>
         </section>
     </main>
-
     <footer>
         <p>&copy; 2024 JFC Foods. All rights reserved.</p>
     </footer>
 
     <script>
-        const CHARGEBEE_SITE = "chargebee-assessment5-test";
-        const API_KEY = "test_8TtSJjFkxka47mqe6aChfN3mObO5Hk5b";
-
-        async function createCheckout(planId) {
-            const url = `https://${CHARGEBEE_SITE}.chargebee.com/api/v2/hosted_pages/checkout_new`;
-            const data = {
-                subscription: { plan_id: planId },
-                customer: {
-                    first_name: "John",
-                    last_name: "Doe",
-                    email: "john.doe@example.com"
-                }
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Basic ${btoa(API_KEY + ":")}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    window.location.href = result.hosted_page.url;
+        // Amaze Plan Checkout
+        document.getElementById('amaze-checkout-btn').addEventListener('click', function () {
+            fetch('https://chargebee-assessment5-test.chargebee.com/api/v2/hosted_pages/checkout_new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('test_otHPAA4ryXsqLId20Sso0KE4YO9DNiuI:')
+                },
+                body: JSON.stringify({
+                    subscription: {
+                        plan_id: 'amaze_plan'
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.hosted_page && data.hosted_page.url) {
+                    // Redirect to Chargebee hosted checkout page
+                    window.location.href = data.hosted_page.url;
                 } else {
-                    const error = await response.json();
-                    alert(`Error: ${error.message || "Unable to create checkout link"}`);
+                    alert('Error: Unable to generate checkout link. Please try again.');
+                    console.error('Error Response:', data);
                 }
-            } catch (error) {
-                alert("An error occurred while creating the checkout link.");
-                console.error("API Error:", error);
-            }
-        }
-
-        document.getElementById("basic-checkout-btn").addEventListener("click", () => createCheckout("basic_plan"));
-        document.getElementById("advantage-checkout-btn").addEventListener("click", () => createCheckout("advantage_plan"));
-        document.getElementById("amaze-checkout-btn").addEventListener("click", () => createCheckout("amaze_plan"));
+            })
+            .catch(error => {
+                alert('An error occurred while processing the checkout.');
+                console.error('Fetch Error:', error);
+            });
+        });
     </script>
 </body>
 </html>
