@@ -3,168 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JFC Foods Subscription Plans</title>
-    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="chargebee-assessment5-test"></script>
+    <title>Srivatsan Muralidharan | Portfolio</title>
     <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
+        /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fef8f2;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
             color: #333;
-            display: flex;
-            flex-direction: column;
         }
-
         header {
-            background-color: #ff6a00;
+            background: linear-gradient(90deg, #007bff, #6610f2);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 20px 0;
         }
-
         header h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            margin: 0;
+            font-size: 2.5rem;
         }
-
         header p {
             font-size: 1rem;
+            margin: 5px 0 0;
         }
-
         .container {
-            flex: 1;
-            margin: 20px auto;
+            max-width: 1000px;
+            margin: auto;
             padding: 20px;
-            max-width: 1200px;
         }
-
-        .plans {
+        /* Tabs */
+        .tabs {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
         }
-
-        .plan {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .plan:hover {
-            transform: translateY(-5px);
-        }
-
-        .plan h2 {
-            color: #ff6a00;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .plan ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 15px 0;
-            text-align: left;
-        }
-
-        .plan ul li {
-            margin: 5px 0;
-            font-size: 1rem;
-        }
-
-        .checkout-btn {
-            background-color: #ff6a00;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        .tab {
             padding: 10px 20px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
         }
-
-        .checkout-btn:hover {
-            background-color: #e55c00;
+        .tab:hover, .tab.active {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
         }
-
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Skills Section */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .skill {
+            background: #e9ecef;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .skill:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Footer */
         footer {
             text-align: center;
-            background-color: #333;
+            background: #333;
             color: white;
             padding: 10px 0;
-            margin-top: auto;
+            margin-top: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>JFC Foods</h1>
-        <p>Your gateway to a healthier lifestyle. Choose a plan and enjoy fresh, healthy meals delivered weekly!</p>
+        <h1>Srivatsan Muralidharan</h1>
+        <p>Senior Solution Engineer | Empowering Businesses with Solutions</p>
     </header>
+
     <div class="container">
-        <section class="plans">
-            <!-- Basic Plan -->
-            <div class="plan">
-                <h2>Basic Plan - $20/week</h2>
-                <ul>
-                    <li>Breakfast health mix</li>
-                </ul>
-                <button class="checkout-btn">Checkout</button>
-            </div>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('about')">About Me</button>
+            <button class="tab" onclick="showTab('experience')">Experience</button>
+            <button class="tab" onclick="showTab('skills')">Skills</button>
+            <button class="tab" onclick="showTab('contact')">Contact</button>
+        </div>
 
-            <!-- Advantage Plan -->
-            <div class="plan">
-                <h2>Advantage Plan - $30/week</h2>
-                <ul>
-                    <li>Includes everything in the Basic plan</li>
-                    <li>Protein biscuits</li>
-                    <li>Free delivery</li>
-                </ul>
-                <button class="checkout-btn">Checkout</button>
-            </div>
+        <!-- Tab Content -->
+        <div id="about" class="tab-content active">
+            <h2>About Me</h2>
+            <p>
+                I am a passionate solution engineer with over 6 years of experience in presales, technical support, and customer success. 
+                My expertise includes creating impactful Proof of Concepts (PoCs), delivering product demos, and solving customer challenges.
+            </p>
+        </div>
 
-            <!-- Amaze Plan -->
-            <div class="plan">
-                <h2>Amaze Plan - $40/week</h2>
-                <ul>
-                    <li>Includes everything in the Advantage plan</li>
-                    <li>GYM membership</li>
-                    <li>Phone support</li>
-                </ul>
-                <button class="checkout-btn" data-cb-type="checkout" data-cb-item-0="amaze_plan-USD-Daily" data-cb-item-0-quantity="1">Checkout</button>
+        <div id="experience" class="tab-content">
+            <h2>Experience</h2>
+            <h4>Senior Solution Engineer</h4>
+            <p><strong>Freshworks</strong> (Jun 2021 - Present)</p>
+            <ul>
+                <li>Led impactful deals, building prototypes with HTML, CSS, and JavaScript.</li>
+                <li>Conducted 26+ live demos, contributing to $500-$1,200 MRR deals.</li>
+                <li>Collaborated across teams to solve complex customer problems.</li>
+            </ul>
+            <h4>Technical Support Engineer</h4>
+            <p><strong>Zoho Corporation</strong> (Feb 2019 - May 2021)</p>
+            <ul>
+                <li>Delivered high-quality technical support and managed global customer relationships.</li>
+                <li>Worked closely with cross-functional teams to resolve technical challenges.</li>
+            </ul>
+        </div>
+
+        <div id="skills" class="tab-content">
+            <h2>Skills</h2>
+            <div class="skills">
+                <div class="skill">Presales</div>
+                <div class="skill">Proof of Concept (PoC)</div>
+                <div class="skill">API Integrations</div>
+                <div class="skill">HTML, CSS, JavaScript</div>
+                <div class="skill">Competitive Analysis</div>
+                <div class="skill">Customer Success</div>
+                <div class="skill">Solution Engineering</div>
             </div>
-        </section>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <h2>Contact</h2>
+            <p>Want to connect? Reach out to me:</p>
+            <ul>
+                <li>Email: <a href="mailto:srivatsan@example.com">srivatsan@example.com</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com/in/srivatsanmuralidharan028/" target="_blank">Visit my LinkedIn</a></li>
+            </ul>
+        </div>
     </div>
+
     <footer>
-        <p>&copy; 2024 JFC Foods. All rights reserved.</p>
+        <p>© 2024 Srivatsan Muralidharan. All rights reserved.</p>
     </footer>
+
     <script>
-        // Initialize Chargebee
-        var cbInstance = Chargebee.init();
-        cbInstance.setCheckoutCallbacks({
-            loaded: function () {
-                console.log("Checkout loaded successfully.");
-            },
-            error: function (error) {
-                console.error("Error during checkout:", error);
-            }
-        });
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const activeTab = document.getElementById(tabId);
+            activeTab.classList.add('active');
+
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            const activeButton = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
+            activeButton.classList.add('active');
+        }
     </script>
 </body>
 </html>
